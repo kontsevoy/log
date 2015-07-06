@@ -1,4 +1,4 @@
-Logga adds more convenience around Golang's log and syslog packages, primarily by adding two capabilities:
+_Log_ adds more convenience around Golang's log and syslog packages, primarily by adding two capabilities:
 
 * Multiplexes logging into multiple outputs, like syslog, stderr or stdout
 * Uses "log priorities" (error, warning, info, debug, etc) borrowed from syslog for everything
@@ -6,7 +6,7 @@ Logga adds more convenience around Golang's log and syslog packages, primarily b
 Here's the example of how to use it:
 ```Go
 import (
-	lg "github.com/kontsevoy/logga"
+	lg "github.com/kontsevoy/log"
 	"log"
 	"log/syslog"
 )
