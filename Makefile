@@ -1,2 +1,2 @@
-logga.out: *.go main/*.go
-	go build -o logga.out main/main.go
+out: *.go main/*.go
+	go build -o out main/main.go

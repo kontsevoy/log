@@ -1,24 +1,24 @@
 package main
 
 import (
-	"github.com/kontsevoy/logga"
+	l "github.com/kontsevoy/log"
 	"log"
 	"log/syslog"
 )
 
 func main() {
 	// use our own logger natively:
-	slw := logga.AddTarget(logga.TargetSyslog, syslog.LOG_INFO)
-	writer := logga.AddTarget(logga.TargetStdout, syslog.LOG_INFO)
-	logga.SetFlags(log.LstdFlags)
+	slw := l.AddTarget(l.TargetSyslog, syslog.LOG_INFO)
+	writer := l.AddTarget(l.TargetStdout, syslog.LOG_INFO)
+	l.SetFlags(log.LstdFlags)
 	slw.SetFlags(0)
 
-	logga.Info("This is info\n")
-	logga.Warning("This is warning\n")
-	logga.Error("This is error\n")
+	l.Info("This is info\n")
+	l.Warning("This is warning\n")
+	l.Error("This is error\n")
 
-	logga.Print(1, 2, 3)
-	logga.Printf("%v -> %v -> %v\n\n", 1, 2, 3)
+	l.Print(1, 2, 3)
+	l.Printf("%v -> %v -> %v\n\n", 1, 2, 3)
 
 	// plug our logger into standard Golang log:
 	log.SetOutput(writer)
