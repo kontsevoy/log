@@ -22,12 +22,12 @@ func main() {
 	// syslog flags:
 	sysl.SetFlags(0)
 
-  // write into both logs (syslog and stdout) with 3 different priorities:
+        // write into both logs (syslog and stdout) with 3 different priorities:
 	lg.Info("This is info")
 	lg.Warning("This is warning")
 	lg.Error("This is error")
 
-	// configure standard log to write via logga:
+	// configure standard log to write via our log:
 	log.SetOutput(writer)
 	log.Println("logang log output")
 }
