@@ -1,15 +1,15 @@
-package logga
+package log
 
 import (
 	"bytes"
-	"log"
+	golog "log"
 	"log/syslog"
 )
 
 type SyslogWriter struct {
 	BaseWriter
 	writer    *syslog.Writer
-	formatter *log.Logger
+	formatter *golog.Logger
 	buffer    *bytes.Buffer
 }
 
@@ -17,7 +17,7 @@ func NewSyslogWriter(p syslog.Priority, tag string) LoggaWriter {
 	sw := &SyslogWriter{}
 	sw.writer, _ = syslog.New(p, tag)
 	sw.buffer = new(bytes.Buffer)
-	sw.formatter = log.New(sw.buffer, "", 0)
+	sw.formatter = golog.New(sw.buffer, "", 0)
 	return LoggaWriter(sw)
 }
 

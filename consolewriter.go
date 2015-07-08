@@ -1,19 +1,19 @@
-package logga
+package log
 
 import (
 	"io"
-	"log"
+	golog "log"
 	"log/syslog"
 )
 
 type ConsoleWriter struct {
 	BaseWriter
-	logger *log.Logger
+	logger *golog.Logger
 }
 
 func NewConsoleWriter(p syslog.Priority, w io.Writer) LoggaWriter {
 	return LoggaWriter(&ConsoleWriter{
-		logger:     log.New(w, "", 0),
+		logger:     golog.New(w, "", 0),
 		BaseWriter: BaseWriter{priority: p},
 	})
 }
@@ -25,7 +25,9 @@ func (w *ConsoleWriter) Write(b []byte) (int, error) {
 }
 
 func (w *ConsoleWriter) WriteP(p syslog.Priority, s string) {
-	w.logger.Print(s)
+	if w.GetPriority() >= p {
+		w.logger.Print(s)
+	}
 }
 
 func (w *ConsoleWriter) SetFlags(f int) {
