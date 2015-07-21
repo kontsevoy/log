@@ -26,7 +26,7 @@ func (w *ConsoleWriter) Write(b []byte) (int, error) {
 
 func (w *ConsoleWriter) WriteP(p syslog.Priority, s string) {
 	if w.GetPriority() >= p {
-		w.logger.Print(s)
+		w.logger.Output(4, s)
 	}
 }
 
