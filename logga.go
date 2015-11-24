@@ -68,6 +68,11 @@ func Error(s string, args ...interface{}) {
 	Std.writeWithPriority(syslog.LOG_ERR, s, args...)
 }
 
+func Fatal(s string, args ...interface{}) {
+	Error(s, args...)
+	os.Exit(1)
+}
+
 func AddTarget(target LogTarget, p syslog.Priority) LoggaWriter {
 	return Std.AddTarget(target, p)
 }
