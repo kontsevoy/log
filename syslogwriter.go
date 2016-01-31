@@ -11,10 +11,11 @@ type SyslogWriter struct {
 	writer    *syslog.Writer
 	formatter *golog.Logger
 	buffer    *bytes.Buffer
+	priority  syslog.Priority
 }
 
 func NewSyslogWriter(p syslog.Priority, tag string) LoggaWriter {
-	sw := &SyslogWriter{}
+	sw := &SyslogWriter{priority: p}
 	sw.writer, _ = syslog.New(p, tag)
 	sw.buffer = new(bytes.Buffer)
 	sw.formatter = golog.New(sw.buffer, "", 0)
@@ -30,22 +31,7 @@ func (w *SyslogWriter) Write(b []byte) (int, error) {
 // WriteP implements logga.LoggaWriter interface
 func (w *SyslogWriter) WriteP(p syslog.Priority, s string) {
 	s = w.formatHeader(s)
-	switch p {
-	case syslog.LOG_INFO:
-		w.writer.Info(s)
-	case syslog.LOG_DEBUG:
-		w.writer.Debug(s)
-	case syslog.LOG_NOTICE:
-		w.writer.Notice(s)
-	case syslog.LOG_WARNING:
-		w.writer.Warning(s)
-	case syslog.LOG_ERR:
-		w.writer.Err(s)
-	case syslog.LOG_CRIT:
-		w.writer.Crit(s)
-	case syslog.LOG_ALERT:
-		w.writer.Alert(s)
-	default:
+	if p <= w.priority {
 		w.writer.Write([]byte(s))
 	}
 }

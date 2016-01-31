@@ -8,11 +8,13 @@ import (
 )
 
 func main() {
-	// use our own logger natively:
-	//slw := l.AddTarget(l.TargetSyslog, syslog.LOG_INFO)
-	//slw.SetFlags(0)
+	// turn on syslog:
+	slw := l.AddTarget(l.TargetSyslog, syslog.LOG_DEBUG)
+	slw.SetFlags(0)
+
+	// turn on stderr:
 	writer := l.AddTarget(l.TargetStderr, syslog.LOG_WARNING)
-	l.SetFlags(0) //log.LstdFlags)
+	l.SetFlags(log.Llongfile)
 
 	l.Info("This is info\n")
 	l.Warning("This is warning\n")

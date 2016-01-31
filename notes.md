@@ -3,8 +3,8 @@
 The top 3 feaures of the logger are:
 
 - Ease of configuring the output (stderr, syslog, stdout)
-- Ease of setting logging prefix
-- Ease of setting logging priority
+- Ease of setting logging prefix: globally and per-output
+- Ease of setting logging priority: globally and per-output
 
 ### Priorities
 
